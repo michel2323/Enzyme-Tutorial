@@ -34,9 +34,9 @@ int main() {
 
     // Allocate GPU device memory
     cudaMalloc(&x, sizeof(*x));
-    cudaMalloc(&d_x, sizeof(*d_x))
+    cudaMalloc(&d_x, sizeof(*d_x));
     cudaMalloc(&y, sizeof(*y));
-    cudaMalloc(&d_y, sizeof(*d_y))
+    cudaMalloc(&d_y, sizeof(*d_y));
 
     // Initialize device values
     double host_x = 1.4;
@@ -55,7 +55,7 @@ int main() {
     square<<<1, 1>>>(x, y);
 #else
     // Forward and backward pass
-    square_grad<<<1, 1>>>(x, d_x, y, d_y);  
+    square_grad<<<1, 1>>>(x, d_x, y, d_y);
 #endif
 
     // Synchronize device memory
@@ -70,5 +70,5 @@ int main() {
     // Print results
     printf("%f %f\n", host_x, host_y);
     printf("%f %f\n", host_d_x, host_d_y);
-    
+
 }

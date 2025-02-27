@@ -1,10 +1,12 @@
-all: square.o
+ENZYME_PATH = /disk/mschanen/git/Enzyme/build
+
+all: square
+
+square: square.o
+	clang -O3 -Xclang -load -Xclang $(ENZYME_PATH)/Enzyme/ClangEnzyme-21.so -ffast-math $^ -o $@
 
 clean:
-	rm -f *.o *.ll
+	rm -f *.o
 
 %.o: %.c
-	../dockerscript.sh clang-12 /host/$^ -O3 -Xclang -load -Xclang /Enzyme/enzyme/build/Enzyme/ClangEnzyme-12.so -ffast-math -o /host/$@
-
-run-%: %.o
-	../dockerscript.sh /host/$^ 3.14
+	clang -O3 -Xclang -load -Xclang $(ENZYME_PATH)/Enzyme/ClangEnzyme-21.so -ffast-math -c $^
